@@ -43,3 +43,14 @@ def creat_tenant_sub_plan(
     session.commit()
     session.refresh(db_object)
     return db_object
+
+
+def read_tenant_sub_plan_by_id(
+    session: Session, tenant_id: uuid.UUID
+) -> TenantSubscriptionPlan | None:
+    statement = select(TenantSubscriptionPlan).where(
+        TenantSubscriptionPlan.tenant_id == tenant_id,
+        TenantSubscriptionPlan.is_active == True,
+    )
+    session_user = session.exec(statement).first()
+    return session_user

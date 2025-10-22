@@ -14,6 +14,7 @@ class SubscriptionLevel(str, Enum):
     GOLD = "gold"
     PREMIUM = "premium"
     PRO = "pro"
+    SUPER_ADMIN = "super_admin"
 
 
 class RoleType(str, Enum):
@@ -178,7 +179,7 @@ class User(UserBase, table=True):
 
 class UserPublic(UserBase):
     id: uuid.UUID
-    tenant_id: uuid.UUID
+    tenant_id: Optional[uuid.UUID]
     last_login: Optional[datetime]
     created_at: datetime
     updated_at: datetime
@@ -235,7 +236,7 @@ class UserRole(UserRoleBase, table=True):
 class UserRolePublic(UserRoleBase):
     id: uuid.UUID
     user_id: uuid.UUID
-    tenant_id: uuid.UUID
+    tenant_id: Optional[uuid.UUID]
     created_at: datetime
 
 

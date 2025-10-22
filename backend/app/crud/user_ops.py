@@ -60,3 +60,13 @@ def creat_user_sub_plan(
     session.commit()
     session.refresh(db_object)
     return db_object
+
+
+def read_user_sub_plan_by_id(
+    session: Session, user_id: uuid.UUID
+) -> UserSubscriptionPlan:
+    statement = select(UserSubscriptionPlan).where(
+        UserSubscriptionPlan.user_id == user_id, UserSubscriptionPlan.is_active == True
+    )
+    session_usersubplan = session.exec(statement).first()
+    return session_usersubplan

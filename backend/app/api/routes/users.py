@@ -36,8 +36,6 @@ def create_user(
 
     user = user_ops.create_user(session, user_in)
     role_in.user_id = user.id
-    role_in.user_id = user.tenant_id
+    role_in.tenant_id = user.tenant_id
     user_ops.create_user_role(session, user=user, role_in=role_in)
     return user
-
-
