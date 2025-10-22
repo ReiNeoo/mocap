@@ -149,7 +149,7 @@ class User(UserBase, table=True):
     __tablename__ = "users"
 
     id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True)
-    tenant_id: Optional[uuid.UUID] = Field(foreign_key="tenants.id", nullable=False)
+    tenant_id: Optional[uuid.UUID] = Field(foreign_key="tenants.id", nullable=True)
     password_hash: str = Field(max_length=255)
     last_login: Optional[datetime] = Field(default=None)
     created_at: datetime = Field(default_factory=datetime.utcnow)
@@ -215,8 +215,8 @@ class UserRoleBase(SQLModel):
 
 
 class UserRoleCreate(UserRoleBase):
-    user_id: uuid.UUID
-    tenant_id: uuid.UUID
+    user_id: Optional[uuid.UUID]
+    tenant_id: Optional[uuid.UUID]
 
 
 class UserRole(UserRoleBase, table=True):
@@ -224,7 +224,7 @@ class UserRole(UserRoleBase, table=True):
 
     id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True)
     user_id: uuid.UUID = Field(foreign_key="users.id", nullable=False)
-    tenant_id: uuid.UUID = Field(foreign_key="tenants.id", nullable=False)
+    tenant_id: Optional[uuid.UUID] = Field(foreign_key="tenants.id", nullable=True)
     created_at: datetime = Field(default_factory=datetime.utcnow)
 
     # Relationships

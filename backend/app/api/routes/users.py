@@ -35,5 +35,9 @@ def create_user(
         raise HTTPException(status_code=400, detail="User Exists")
 
     user = user_ops.create_user(session, user_in)
+    role_in.user_id = user.id
+    role_in.user_id = user.tenant_id
     user_ops.create_user_role(session, user=user, role_in=role_in)
     return user
+
+

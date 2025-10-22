@@ -1,8 +1,8 @@
-"""Initial clean migration
+"""start_testing
 
-Revision ID: b4ee6927f3bc
+Revision ID: 8f26e39bd7f2
 Revises: 
-Create Date: 2025-10-20 17:31:28.225003
+Create Date: 2025-10-21 17:08:17.659635
 
 """
 from typing import Sequence, Union
@@ -13,7 +13,7 @@ import sqlmodel.sql.sqltypes
 
 
 # revision identifiers, used by Alembic.
-revision: str = 'b4ee6927f3bc'
+revision: str = '8f26e39bd7f2'
 down_revision: Union[str, Sequence[str], None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
@@ -63,7 +63,7 @@ def upgrade() -> None:
     sa.Column('district', sqlmodel.sql.sqltypes.AutoString(length=255), nullable=True),
     sa.Column('address', sa.Text(), nullable=True),
     sa.Column('id', sa.Uuid(), nullable=False),
-    sa.Column('tenant_id', sa.Uuid(), nullable=False),
+    sa.Column('tenant_id', sa.Uuid(), nullable=True),
     sa.Column('password_hash', sqlmodel.sql.sqltypes.AutoString(length=255), nullable=False),
     sa.Column('last_login', sa.DateTime(), nullable=True),
     sa.Column('created_at', sa.DateTime(), nullable=False),
@@ -97,7 +97,7 @@ def upgrade() -> None:
     sa.Column('role_type', sa.Enum('STUDENT', 'PARENT', 'TEACHER', 'COACH', 'TENANT_ADMIN', 'SUPER_ADMIN', name='roletype'), nullable=False),
     sa.Column('id', sa.Uuid(), nullable=False),
     sa.Column('user_id', sa.Uuid(), nullable=False),
-    sa.Column('tenant_id', sa.Uuid(), nullable=False),
+    sa.Column('tenant_id', sa.Uuid(), nullable=True),
     sa.Column('created_at', sa.DateTime(), nullable=False),
     sa.ForeignKeyConstraint(['tenant_id'], ['tenants.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),

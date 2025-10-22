@@ -16,7 +16,7 @@ router = APIRouter(tags=["tenants"], prefix="/tenants")
 
 
 @router.post("/", response_model=TenantPublic)
-def create_tenant(*, session: SessionDep, tenant_in=TenantCreate) -> Any:
+def create_tenant(*, session: SessionDep, tenant_in: TenantCreate) -> Any:
     existing_tenant = tenant_ops.read_tenant_by_VKN(
         session, tenant_vkn=tenant_in.VKN_code
     )

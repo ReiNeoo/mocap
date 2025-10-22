@@ -2,7 +2,7 @@ from sqlmodel import Session, create_engine, select
 
 from app.crud import user_ops
 from app.core.config import settings
-from app.models import User, UserCreate
+from app.models import User, UserCreate, UserRoleCreate, RoleType
 
 engine = create_engine(str(settings.SQLALCHEMY_DATABASE_URI))
 
@@ -19,3 +19,11 @@ def init_db(session: Session) -> None:
             is_superuser=True,
         )
         user = user_ops.create_user(session=session, user_create=user_in)
+
+        role_in = UserRoleCreate(
+            role_type=RoleType.SUPER_ADMIN, user_id=user.id, tenant_id=user.id
+        )
+
+        user_role = user_ops.create_user_role(
+            session=session, user=user, role_in=role_in
+        )
